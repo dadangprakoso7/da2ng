@@ -1,0 +1,322 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>DA2NG</title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Roboto:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  
+
+  <link href="styleNew.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+  <!-- ======= Top Bar ======= -->
+  <section id="topbar" class=" align-items-center bg-danger">
+    <!-- <div class="container d-flex justify-content-center justify-content-md-between"> --> <!--Untuk Sosial-->
+      <div class="container"></div>
+
+      <span><marquee>WEBSITE INI CUMAN SEKADAR TESTING WEBSITE PORTOFOLIO DENGAN GITHUB PAGE, NEXT MUNGKIN AKAN ADA PEMBARUAN AGAR WEBSITE MENJADI DINAMIS. UNTUK KETERBATASANNYA SAYA MOHON MAAF :).</marquee></span>
+    </div>
+  </section>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex align-items-center">
+    <div class="container d-flex align-items-center justify-content-between">
+
+      <a href="index.html" class="logo"><img src="logo.jpeg" alt=""></a>
+
+      <nav id="navbar" class="navbar">
+        <ul>
+          <li class="dropdown"><a href="index.html#"><span>Home</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="index.html#adzan">Jadwal Adzan Surabaya</a></li>
+              <li><a href="index.html#biodata">Biodata</a></li>    
+            </ul>
+          </li>
+          <li class="dropdown"><a href="#"><span>Menu</span> <i class="bi bi-chevron-down"></i></a>
+            <ul>
+              <li><a href="comingSoon.html">Coming Soon</a></li>
+              <li><a href="project.html">Project</a></li>
+              <li class="dropdown"><a href="#"><span>Materi</span> <i class="bi bi-chevron-right"></i></a>
+                <ul>
+                  <li><a href="materi-dinulIslam.html">Dinul Islam</a></li>
+                  <li><a href="materi-tajwid.html">Tajwid</a></li>
+                  <li><a href="materi-qhot.html">Qhot</a></li>
+                  <li><a href="materi-hafalan.html">Hafalan</a></li>
+                  <li><a href="materi-sholat.html">Praktek Sholat, Gerakan & Bacaan</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+          <li><a class="nav-link scrollto" href="https://saweria.co/da2ng">Support Us</a></li>
+          <li><a class="nav-link scrollto" id="jamSekarang"></a></li>
+        </ul>
+        <i class="bi bi-list mobile-nav-toggle"></i>
+      </nav><!-- .navbar -->
+
+    </div>
+  </header><!-- End Header -->
+        
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" style="background: url('not.jpg') top left;background-repeat: no-repeat;" class="d-flex align-items-center">
+    <div class="container" data-aos="zoom-out" data-aos-delay="100">
+      <h1>Welcome to <span>DA2NG</span></h1>
+      <!-- <h2>We are team of talented designers making websites with Bootstrap</h2> -->
+      <div class="d-flex">
+        <!-- <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        <a href="not.jpg'" class="glightbox btn-watch-video"><i class="bi bi-play-circle"></i><span>Watch Video</span></a> -->
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+
+    <script>
+
+      const getDateToday = new Date();
+      const getYearToday = getDateToday.getFullYear();
+      const getMonthToday = getDateToday.getMonth() + 1;
+      const getDayToday = getDateToday.getDate();
+      
+      function bulan() {
+          if(getMonthToday < 10) {
+              bulan = `0${getMonthToday}`;
+          }else{
+              bulan = getMonthToday;
+          }
+          return bulan
+      }
+      function hari() {
+          if(getDayToday < 10) {
+              hari = `0${getDayToday}`;
+          }else{
+              hari = getDayToday;
+          }
+          return hari
+      }
+      const tanggal = `${getYearToday}-${bulan()}-${hari()}`;
+      
+      
+      
+      function getJadwalSholat(){
+          fetch('https://api.banghasan.com/sholat/format/json/jadwal/kota/770/tanggal/' + tanggal)
+          .then(response => response.json())
+          .then(data => {
+              const jadwalSholat = data.jadwal.data;  
+              document.querySelector('.jamImsak').textContent = jadwalSholat.imsak;
+              document.querySelector('.jamSubuh').textContent = jadwalSholat.subuh;
+              document.querySelector('.jamDhuha').textContent = jadwalSholat.terbit;
+              document.querySelector('.jamDzuhur').textContent = jadwalSholat.dzuhur;
+              document.querySelector('.jamAshar').textContent = jadwalSholat.ashar;
+              document.querySelector('.jamMaghrib').textContent = jadwalSholat.maghrib;
+              document.querySelector('.jamIsya').textContent = jadwalSholat.isya;
+              document.querySelector('.tanggalHariIni').textContent = jadwalSholat.tanggal;
+              
+          })
+      
+      }
+      getJadwalSholat();
+      window.setTimeout("waktu()", 1000);
+ 
+      function waktu() {
+        var waktu = new Date();
+        setTimeout("waktu()", 1000);
+        const getJamSekarang = waktu.getHours() + ":" + waktu.getMinutes() + ":" + waktu.getSeconds();
+        document.getElementById("jamSekarang").innerHTML = getJamSekarang;
+      }
+      </script>
+
+
+    <!-- ======= Counts Section ======= -->
+    <section id="adzan" class="counts">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Prayer Time</h2>
+          <h3>Jadwal Adzan <span>Surabaya</span></h3>
+          <p>...</p>
+        </div> 
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-cloud-moon"></i>
+              <span class="jamImsak"></span>
+              <p>Imsak</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-sunrise"></i>
+              <span class="jamSubuh"></span>
+              <p>Subuh</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-cloud-sun"></i>
+              <span class="jamDhuha"></span>
+              <p>Dhuha</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-sun"></i>
+              <span class="jamDzuhur"></span>
+              <p>Dzuhur</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-sunset"></i>
+              <span class="jamAshar"></span>
+              <p>Ashar</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-moon"></i>
+              <span class="jamMaghrib"></span>
+              <p>Maghrib</p>
+            </div>
+          </div>
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <i class="bi bi-moon-stars-fill"></i>
+              <span class="jamIsya"></span>
+              <p>Isya</p>
+            </div>
+          </div>
+    
+        </div>
+      </div>
+    </section><!-- End Counts Section -->
+    
+    <!-- ======= About Section ======= -->
+    <section id="biodata" class="about section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Biodata</h2>
+          <h3>Biodata <span> Pembuat</span></h3>
+          <p>...</p>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right" data-aos-delay="100">
+            <img src="not.jpg" class="img-fluid" alt="">
+          </div>
+          <div class="col-lg-6 pt-4 pt-lg-0 content d-flex flex-column justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <h3>Assalamualaikum Warahmatullahi Wabarakatu.</h3>
+            <p class="fst-italic">
+              Salam Sejahtera.
+            </p>
+            <ul>
+              <li>
+                <i class="bx bx-calendar"></i>
+                <div>
+                  <h5>Tempat & Tanggal Lahir</h5>
+                  <p>Surabaya, 06 Maret 2003</p>
+                </div>
+              </li>
+              <li>
+                <i class="bx bx-home"></i>
+                <div>
+                  <h5>Akademik</h5>
+                  <p>Alumni SMKN 1 Surabaya Angkatan 2020</p>
+                </div>
+              </li>
+            </ul>
+            <p>
+              ...
+            </p>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End About Section -->
+
+   
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+
+    <div class="footer-newsletter">
+      <div class="container">
+        <div class="row justify-content-center">
+          <div class="col-lg-6">
+            <h4>"COMING SOON"</h4>
+            <p>SEMENTARA MASIH MENGGUNAKAN GITHUB PAGES, SETELAH PROJECT SELESAI MAKA AKAN BEGANTI DENGAN DOMAIN SENDIRI</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h3>DA2NG<span>.</span></h3>
+            <p>
+              <a href="https://saweria.co/da2ng">Donate</a>
+            </p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Home</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Coming Soon</a></li>
+              <li><i class="bx bx-chevron-right"></i> <a href="#">Project</a></li>   
+            </ul>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container py-4">
+      <div class="copyright">
+        &copy; Copyright <strong><span>BizLand</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <script src="scriptNew.js"></script>
+
+</body>
+
+</html>
